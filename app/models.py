@@ -24,14 +24,21 @@ class Book(models.Model):
     title = models.CharField(max_length=150)
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Category)
-    subject = models.CharField(max_length=100)
+    price = models.FloatField()
     publication_date = models.DateField()
 
 class Rack(models.Model):
-    books = models.ForeignKey(Book, on_delete=models.CASCADE)
+    NUMBER_RACKS = (
+        ("primary", "PRIMARY"),
+        ("second", "SECOND"),
+        ("third", "THIRD"),
+        ("quarter", "QUARTER"),
+        ("fifth", "FIFTH"),
+        ("sexth", "SIXTH")
+    )
+    rack_numer = models.CharField(choices=NUMBER_RACKS, max_length=10)
 
-
-class BookItem(Book):
+class BookItem(models.Model):
     BOOK_FORMAT = (
         ("hardcover","Hardcover"),
         ("paperback", "Paperback"),
@@ -49,17 +56,19 @@ class BookItem(Book):
         ("lost", "Lost")
     )
     
+    book_reference = models.ForeignKey(Book, on_delete=models.CASCADE)
     barcode = models.CharField(max_length=20)
     is_referenc_only = models.BooleanField(default=False)
     borrowed = models.DateField()
     due_date = models.DateField()
-    price = models.FloatField()
-    format = models.CharField(max_length=15, choices=BOOK_FORMAT)
+    format_book = models.CharField(max_length=15, choices=BOOK_FORMAT)
     status = models.CharField(max_length=15, choices=BOOK_STATUS)
     date_of_purchase = models.DateField()
+    Rack_rereference = models.ForeignKey(Rack, on_delete=models.CASCADE)
     
     def checkout(self):
         pass
+
     
 class Account(models.Model):
     ACCOUNT_STATUS = (
