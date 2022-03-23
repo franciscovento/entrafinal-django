@@ -57,7 +57,6 @@ class BookItem(Book):
     format = models.CharField(max_length=15, choices=BOOK_FORMAT)
     status = models.CharField(max_length=15, choices=BOOK_STATUS)
     date_of_purchase = models.DateField()
-    publication_date = models.DateField()
     
     def checkout(self):
         pass
@@ -71,7 +70,7 @@ class Account(models.Model):
         ("none", "None")
     )
     
-    id = models.CharField(max_length=10)
+    id = models.CharField(max_length=10, primary_key=True)
     password = models.CharField(max_length=16)
     status = models.CharField(max_length=15, choices=ACCOUNT_STATUS)
     
