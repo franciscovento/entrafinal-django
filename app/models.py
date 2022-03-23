@@ -11,8 +11,8 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
-    #def getName(self):
-    #   return self.name
+    def getName(self):
+        return self.name
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
@@ -82,7 +82,7 @@ class Librarian(Account):
     def addBookItem():
         pass
     
-    def BlockMember(self):
+    def blockMember(self):
         pass
     
     def unblockMember(self):
